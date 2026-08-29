@@ -1,124 +1,182 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Award, Layers, CheckCircle2, Cpu, ShieldCheck, Users, TrendingUp, ChevronDown, ChevronUp, Info } from 'lucide-react';
 import { MetricCard } from '../types';
-import { Award, Layers, CheckCircle2, TrendingUp, Users, Cpu, ShieldCheck } from 'lucide-react';
 
 export const SnapshotSection: React.FC = () => {
-  const metrics: (MetricCard & { icon: React.ReactNode })[] = [
+  const [selectedMetricId, setSelectedMetricId] = useState<string | null>(null);
+  const [showAllMetrics, setShowAllMetrics] = useState(false);
+
+  const coreMetrics: (MetricCard & { icon: React.ReactNode; verifiedSource: string })[] = [
     {
       id: 'years-experience',
       value: '7+ Years',
-      label: 'Enterprise QA & SDET',
-      subtext: 'Delivering cross-domain testing & AI solutions across SAP, Salesforce, and Telecom',
+      label: 'Enterprise Experience',
+      subtext: 'Enterprise QA and SDET delivery across SAP, Salesforce, and Telecom ecosystems at Wipro.',
       icon: <Award className="w-4 h-4 text-[#C5A059]" />,
       badge: 'Senior Consultant',
+      verifiedSource: 'Wipro (Jun 2019 – Present) · Lead Automation Consultant',
     },
     {
       id: 'telecom-scripts',
       value: '450+',
       label: 'Automation Scripts',
-      subtext: 'Developed across DSV, Progressive, and SR test types across 4 customer apps',
+      subtext: 'Authored across DSV, Progressive, and SR test suites across 4 customer telecom applications.',
       icon: <Layers className="w-4 h-4 text-[#C5A059]" />,
       badge: 'Telecom Scale',
+      verifiedSource: 'Wipro Telecom Track · High-volume regression automation',
     },
     {
       id: 'tosca-scripts',
       value: '200+',
-      label: 'TOSCA Test Scripts',
-      subtext: 'Regression and sanity packs maintained using DEX and qTest with 100% traceability',
+      label: 'TOSCA Scripts',
+      subtext: 'Maintained across sanity and regression test suites with DEX and qTest distributed execution.',
       icon: <Cpu className="w-4 h-4 text-[#C5A059]" />,
       badge: 'DEX & qTest',
+      verifiedSource: 'Wipro Enterprise Practice · 100% Traceability & Test Maintenance',
     },
     {
       id: 'sap-processes',
       value: '25+',
       label: 'SAP Business Processes',
-      subtext: 'Analyzed and automated across SAP SuccessFactors and SAP Ariba modules',
+      subtext: 'Analyzed for automation suitability across SAP SuccessFactors and SAP Ariba cloud modules.',
       icon: <CheckCircle2 className="w-4 h-4 text-[#C5A059]" />,
       badge: 'SuccessFactors & Ariba',
+      verifiedSource: 'Wipro Enterprise ERP · SIT, UAT & Automation Feasibility',
     },
+  ];
+
+  const additionalMetrics: (MetricCard & { icon: React.ReactNode; verifiedSource: string })[] = [
     {
       id: 'ai-languages',
       value: '5+',
       label: 'Languages Analyzed by AI',
-      subtext: 'Multi-language code analyzer inspecting smells & architectural improvements',
+      subtext: 'Multi-language code analyzer inspecting smells & architectural improvements using local LLMs.',
       icon: <Cpu className="w-4 h-4 text-[#C5A059]" />,
       badge: 'Ollama & LLMs',
+      verifiedSource: 'Independent Engineering Initiative · Local AI code analysis',
     },
     {
       id: 'defects-retested',
       value: '100+',
       label: 'Defects Managed & Retested',
-      subtext: 'Identified, tracked, and verified across iterative release cycles preventing escapes',
+      subtext: 'Identified, tracked, and verified across iterative release cycles preventing escapes.',
       icon: <ShieldCheck className="w-4 h-4 text-[#C5A059]" />,
-      badge: 'P1/P2/P3 Defect Triage',
+      badge: 'Defect Triage',
+      verifiedSource: 'Wipro Telecom Quality Governance',
     },
     {
       id: 'associates-mentored',
       value: '5',
       label: 'Junior Associates Mentored',
-      subtext: 'Accelerated team ramp-up on testing practices and module workflows',
+      subtext: 'Accelerated team ramp-up on testing practices, domain workflows, and automation design.',
       icon: <Users className="w-4 h-4 text-[#C5A059]" />,
-      badge: 'Knowledge Sharing',
+      badge: 'Leadership',
+      verifiedSource: 'Wipro Team Mentorship & Knowledge Transfer',
     },
     {
       id: 'client-handover',
       value: '100%',
       label: 'Client Handover Success',
-      subtext: 'Delivered flawless end-to-end script runs during formal client acceptance',
+      subtext: 'Delivered flawless end-to-end script runs during formal client acceptance handovers.',
       icon: <TrendingUp className="w-4 h-4 text-[#C5A059]" />,
-      badge: 'Full Sign-Off',
+      badge: 'Formal Sign-off',
+      verifiedSource: 'Wipro Enterprise Client Acceptance Milestones',
     },
   ];
 
+  const displayedMetrics = showAllMetrics ? [...coreMetrics, ...additionalMetrics] : coreMetrics;
+
+  const toggleMetric = (id: string) => {
+    setSelectedMetricId((prev) => (prev === id ? null : id));
+  };
+
   return (
-    <section id="snapshot" className="py-16 md:py-24 bg-[#0A0A0A] border-b border-[#2A2A2A]">
+    <section id="snapshot" className="py-14 md:py-20 bg-[#0A0A0A] border-b border-[#2A2A2A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="font-sans text-[10px] uppercase tracking-[0.35em] text-[#C5A059] font-medium px-3 py-1 rounded-sm bg-[#161410] border border-[#3E3420]">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#C5A059] font-medium px-3 py-1 rounded-sm bg-[#161410] border border-[#3E3420]">
             Professional Snapshot
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-normal text-white tracking-tight mt-3">
-            Authoritative Career Metrics & Scale
+          <h2 className="text-2xl sm:text-3xl font-serif font-normal text-white tracking-tight mt-2.5">
+            Verified Career Metrics
           </h2>
-          <div className="w-12 h-[1px] bg-[#C5A059] mx-auto my-3"></div>
-          <p className="text-[#8C8C8C] text-sm sm:text-base">
-            Every metric below is directly derived from my verified enterprise experience at Wipro.
+          <p className="text-xs text-[#8C8C8C] mt-2">
+            Click any metric to reveal supporting context and verification.
           </p>
         </div>
 
-        {/* 4x2 Grid of Metrics */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {metrics.map((m) => (
-            <div
-              key={m.id}
-              className="p-5 rounded-sm bg-[#121212] border border-[#2A2A2A] hover:border-[#C5A059]/60 hover:bg-[#161616] transition-all group flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 rounded-sm bg-[#161410] border border-[#3E3420]">
-                    {m.icon}
-                  </div>
-                  {m.badge && (
-                    <span className="text-[9px] font-sans uppercase tracking-[0.2em] px-2 py-0.5 rounded-sm bg-[#1A1813] text-[#C5A059] border border-[#3E3420]">
+        {/* High-Value Metrics Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {displayedMetrics.map((m) => {
+            const isExpanded = selectedMetricId === m.id;
+
+            return (
+              <button
+                key={m.id}
+                onClick={() => toggleMetric(m.id)}
+                className={`p-5 rounded-sm text-left transition-all cursor-pointer border ${
+                  isExpanded
+                    ? 'bg-[#161410] border-[#C5A059] shadow-md'
+                    : 'bg-[#101010] border-[#242424] hover:border-[#383838] hover:bg-[#141414]'
+                } flex flex-col justify-between`}
+                aria-expanded={isExpanded}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono text-[#8C8C8C] bg-[#161616] px-2 py-0.5 rounded-sm border border-[#2A2A2A]">
                       {m.badge}
                     </span>
-                  )}
+                    <span className="text-[#8C8C8C] hover:text-[#C5A059] transition-colors">
+                      <Info className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+
+                  <div className="text-3xl sm:text-4xl font-serif font-light text-white tracking-tight mb-1">
+                    {m.value}
+                  </div>
+
+                  <div className="text-xs font-mono text-[#C5A059] tracking-wide font-medium">
+                    {m.label}
+                  </div>
                 </div>
 
-                <div className="text-3xl sm:text-4xl font-light text-white font-serif tracking-tight group-hover:text-[#C5A059] transition-colors">
-                  {m.value}
-                </div>
+                {/* Inline progressive disclosure */}
+                {isExpanded ? (
+                  <div className="mt-4 pt-3 border-t border-[#3E3420] text-xs text-[#C0B8AE] space-y-1.5 animate-fadeIn">
+                    <p className="leading-relaxed font-light">{m.subtext}</p>
+                    <p className="text-[10px] font-mono text-[#8C8C8C] italic">
+                      Source: {m.verifiedSource}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-3 text-[11px] font-mono text-[#555] flex items-center gap-1">
+                    <span>Click for context</span>
+                    <ChevronDown className="w-3 h-3" />
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
 
-                <div className="text-xs font-sans uppercase tracking-[0.15em] text-[#E0D8D0] mt-2 mb-1 font-medium">
-                  {m.label}
-                </div>
-              </div>
-
-              <p className="text-xs text-[#8C8C8C] leading-relaxed border-t border-[#1F1F1F] pt-3 mt-3">
-                {m.subtext}
-              </p>
-            </div>
-          ))}
+        {/* Progressive Disclosure Toggle for More Metrics */}
+        <div className="text-center mt-6">
+          <button
+            onClick={() => setShowAllMetrics(!showAllMetrics)}
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-mono text-[#8C8C8C] hover:text-[#C5A059] bg-[#121212] hover:bg-[#181818] border border-[#222222] hover:border-[#3E3420] rounded-sm transition-all cursor-pointer"
+          >
+            {showAllMetrics ? (
+              <>
+                <span>Show Core 4 Metrics</span>
+                <ChevronUp className="w-3.5 h-3.5" />
+              </>
+            ) : (
+              <>
+                <span>View All Scale Metrics (8 Total)</span>
+                <ChevronDown className="w-3.5 h-3.5" />
+              </>
+            )}
+          </button>
         </div>
       </div>
     </section>

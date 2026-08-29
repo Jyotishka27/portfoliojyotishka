@@ -23,13 +23,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   }, []);
 
   const navItems = [
-    { label: 'Capabilities', href: '#what-i-do' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Enterprise', href: '#enterprise' },
-    { label: 'Pyramid', href: '#testing-expertise' },
-    { label: 'Philosophy', href: '#philosophy' },
+    { label: 'Home', href: '#' },
+    { label: 'Work', href: '#projects' },
     { label: 'Experience', href: '#experience' },
-    { label: 'Skills', href: '#skills' },
+    { label: 'Expertise', href: '#what-i-do' },
     { label: 'Notes', href: '#notes' },
     { label: 'Contact', href: '#contact' },
   ];

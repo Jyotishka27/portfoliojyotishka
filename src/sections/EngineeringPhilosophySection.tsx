@@ -1,80 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SectionHeading } from '../components/SectionHeading';
 import { PHILOSOPHY_PRINCIPLES } from '../data/pyramid';
-import { Layers, RefreshCw, Cpu, Sparkles, UserCheck, Shield } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export const EngineeringPhilosophySection: React.FC = () => {
-  const principleIcons = [
-    <Layers className="w-4 h-4 text-[#C5A059]" />,
-    <RefreshCw className="w-4 h-4 text-[#C5A059]" />,
-    <Cpu className="w-4 h-4 text-[#C5A059]" />,
-    <Sparkles className="w-4 h-4 text-[#C5A059]" />,
-    <UserCheck className="w-4 h-4 text-[#C5A059]" />,
-  ];
+  const [expandedPrinciples, setExpandedPrinciples] = useState<Record<string, boolean>>({});
+
+  const togglePrinciple = (num: string) => {
+    setExpandedPrinciples((prev) => ({ ...prev, [num]: !prev[num] }));
+  };
 
   return (
-    <section
-      id="philosophy"
-      className="py-20 md:py-28 bg-[#0D0D0D] border-b border-[#222222]"
-    >
+    <section id="philosophy" className="py-16 md:py-24 bg-[#0D0D0D] border-b border-[#222222]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="Core Philosophy"
           title="How I Think About Testing & Engineering"
-          subtitle="Engineering rigor is defined not by how many scripts are written, but by the architectural wisdom to place the right assertion at the correct tier of the application."
+          subtitle="Principled engineering practices balancing execution velocity, maintainability, and regression confidence."
           align="center"
         />
 
-        {/* Big Anchor Statement */}
-        <div className="max-w-4xl mx-auto mb-16 p-8 rounded-sm bg-[#121212] border border-[#2A2A2A] shadow-2xl relative overflow-hidden text-center space-y-4">
-          <span className="font-sans uppercase tracking-widest text-xs text-[#C5A059] font-medium px-3 py-1 rounded-sm bg-[#1A1813] border border-[#3E3420] inline-block">
+        {/* Main Statement */}
+        <div className="max-w-3xl mx-auto mb-12 p-6 sm:p-8 rounded-sm bg-[#121212] border border-[#2A2A2A] text-center space-y-3 shadow-md">
+          <span className="font-mono uppercase tracking-widest text-[10px] text-[#C5A059] font-medium px-3 py-1 rounded-sm bg-[#1A1813] border border-[#3E3420] inline-block">
             Foundational Law
           </span>
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-normal text-white tracking-tight leading-tight">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-normal text-white tracking-tight leading-snug">
             &ldquo;Good automation isn't about automating everything. It's about putting the right validation at the right layer.&rdquo;
           </h3>
-          <p className="text-[#8C8C8C] text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Automating a broken test strategy simply generates failures faster. High-performance teams architect validation with precision, balancing execution velocity against regression confidence.
-          </p>
         </div>
 
-        {/* 5 Numbered Principles */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PHILOSOPHY_PRINCIPLES.map((principle, idx) => (
-            <div
-              key={principle.number}
-              className={`p-6 rounded-sm bg-[#0C0C0C] border border-[#222222] hover:border-[#3E3420] transition-all flex flex-col justify-between group ${
-                idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-serif text-3xl font-light text-[#444444] group-hover:text-[#C5A059] transition-colors">
-                    {principle.number}
-                  </span>
-                  <div className="p-2 rounded-sm bg-[#141414] border border-[#222222]">
-                    {principleIcons[idx]}
+        {/* 5 Compact Principle Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          {PHILOSOPHY_PRINCIPLES.map((p) => {
+            const isExpanded = !!expandedPrinciples[p.number];
+
+            return (
+              <button
+                key={p.number}
+                onClick={() => togglePrinciple(p.number)}
+                className={`p-5 rounded-sm border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                  isExpanded
+                    ? 'bg-[#161410] border-[#C5A059] shadow-md'
+                    : 'bg-[#111111] border-[#222222] hover:border-[#3E3420] hover:bg-[#141414]'
+                }`}
+                aria-expanded={isExpanded}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="font-mono text-xs text-[#C5A059] bg-[#1A1813] px-2 py-0.5 rounded-sm border border-[#3E3420]">
+                      {p.number}
+                    </span>
+                    <span className="text-xs font-mono text-[#777] flex items-center gap-1">
+                      {isExpanded ? (
+                        <>
+                          <span>Less</span>
+                          <ChevronUp className="w-3.5 h-3.5" />
+                        </>
+                      ) : (
+                        <>
+                          <span>Expand</span>
+                          <ChevronDown className="w-3.5 h-3.5" />
+                        </>
+                      )}
+                    </span>
                   </div>
+
+                  {/* Title */}
+                  <h4 className="text-base font-serif font-normal text-white mb-2">
+                    {p.title}
+                  </h4>
+
+                  {/* One Short Sentence */}
+                  <p className="text-xs text-[#C5A059] font-medium font-sans mb-1">
+                    {p.statement}
+                  </p>
                 </div>
 
-                <h4 className="text-lg font-serif font-normal text-white group-hover:text-[#E0D8D0] transition-colors mb-2">
-                  {principle.title}
-                </h4>
-
-                <p className="text-xs sm:text-sm font-medium text-[#C5A059] font-sans mb-3">
-                  {principle.statement}
-                </p>
-
-                <p className="text-xs sm:text-sm text-[#C0B8AE] leading-relaxed">
-                  {principle.explanation}
-                </p>
-              </div>
-
-              <div className="pt-4 mt-4 border-t border-[#1F1F1F] flex items-center text-[11px] font-mono text-[#666]">
-                <span>Principle {principle.number} of 05</span>
-              </div>
-            </div>
-          ))}
+                {/* Progressive Disclosure Explanation */}
+                {isExpanded ? (
+                  <div className="pt-3 mt-3 border-t border-[#3E3420] text-xs text-[#C0B8AE] leading-relaxed font-light animate-fadeIn">
+                    {p.explanation}
+                  </div>
+                ) : (
+                  <div className="pt-3 text-[10px] font-mono text-[#555]">
+                    Click to reveal engineering rationale
+                  </div>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

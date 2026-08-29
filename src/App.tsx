@@ -4,6 +4,8 @@ import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
 import { ProjectModal } from './components/ProjectModal';
 import { ArticleModal } from './components/ArticleModal';
+import { CapabilityModal } from './components/CapabilityModal';
+import { EnterpriseDomainModal } from './components/EnterpriseDomainModal';
 
 import { HeroSection } from './sections/HeroSection';
 import { SnapshotSection } from './sections/SnapshotSection';
@@ -20,12 +22,14 @@ import { CertificationsEducationSection } from './sections/CertificationsEducati
 import { EngineeringNotesSection } from './sections/EngineeringNotesSection';
 import { ContactSection } from './sections/ContactSection';
 
-import { ProjectCaseStudy, ArticleItem } from './types';
+import { ProjectCaseStudy, ArticleItem, CapabilityArea, EnterpriseDomain } from './types';
 
 export default function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<ArticleItem | null>(null);
+  const [selectedCapability, setSelectedCapability] = useState<CapabilityArea | null>(null);
+  const [selectedDomain, setSelectedDomain] = useState<EnterpriseDomain | null>(null);
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#E0D8D0] selection:bg-[#C5A059]/30 selection:text-[#FFF8EC] antialiased font-sans">
@@ -37,19 +41,21 @@ export default function App() {
         {/* 1. Hero Section */}
         <HeroSection onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* 2. Professional Snapshot Metrics */}
+        {/* 2. Professional Snapshot Metrics (Progressive context on click) */}
         <SnapshotSection />
 
-        {/* 3. What I Do (6 Capability Areas) */}
-        <WhatIDoSection />
+        {/* 3. What I Do (5 Capability Cards with modal exploration) */}
+        <WhatIDoSection onSelectCapability={(cap) => setSelectedCapability(cap)} />
 
         {/* 4. Featured Projects (Case Studies & Interactive Simulators) */}
         <FeaturedProjectsSection
           onSelectProject={(project) => setSelectedProject(project)}
         />
 
-        {/* 5. Enterprise Testing Experience (SAP, Salesforce, Telecom) */}
-        <EnterpriseTestingSection />
+        {/* 5. Enterprise Testing Experience (SAP, Salesforce, Telecom with domain modals) */}
+        <EnterpriseTestingSection
+          onSelectDomain={(domain) => setSelectedDomain(domain)}
+        />
 
         {/* 6. Testing Expertise & The Layered Testing Pyramid */}
         <TestingExpertiseSection />
@@ -60,13 +66,13 @@ export default function App() {
         {/* 8. Engineering Journey (Visual Career Timeline) */}
         <EngineeringJourneySection />
 
-        {/* 9. Professional Experience (Wipro Progression) */}
+        {/* 9. Professional Experience (Wipro Progression with progressive disclosure) */}
         <ExperienceSection />
 
-        {/* 10. Key Achievements (Transformations & Metrics) */}
+        {/* 10. Key Achievements (Compact cards with context reveal) */}
         <AchievementsSection />
 
-        {/* 11. Technical Skills Matrix */}
+        {/* 11. Technical Skills Matrix (Category groups with Show All toggle) */}
         <TechnicalSkillsSection />
 
         {/* 12. Certifications, Education & Languages */}
@@ -78,13 +84,13 @@ export default function App() {
         />
 
         {/* 14. Contact Section */}
-        <ContactSection />
+        <ContactSection onOpenResume={() => setIsResumeOpen(true)} />
       </main>
 
       {/* Footer */}
       <Footer onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Modals & Drawers */}
+      {/* Modals & Detail Drawers */}
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
@@ -93,6 +99,16 @@ export default function App() {
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
+      />
+
+      <CapabilityModal
+        capability={selectedCapability}
+        onClose={() => setSelectedCapability(null)}
+      />
+
+      <EnterpriseDomainModal
+        domain={selectedDomain}
+        onClose={() => setSelectedDomain(null)}
       />
 
       <ArticleModal
