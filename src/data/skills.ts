@@ -1,0 +1,87 @@
+import { SkillCategory } from '../types';
+
+export const SKILL_CATEGORIES: SkillCategory[] = [
+  {
+    title: 'Testing & QA Lifecycle',
+    description: 'Comprehensive functional and lifecycle verification across enterprise releases',
+    skills: [
+      'Functional Testing',
+      'Manual Testing',
+      'Regression Testing',
+      'Integration Testing',
+      'System Integration Testing (SIT)',
+      'User Acceptance Testing (UAT)',
+      'API Testing',
+      'Backend Validation',
+      'Performance Test Execution',
+      'Defect Lifecycle Management',
+    ],
+  },
+  {
+    title: 'Enterprise Applications & Domains',
+    description: 'Mission-critical enterprise software ecosystems and domain workflows',
+    skills: [
+      'SAP SuccessFactors Testing',
+      'SAP Ariba Testing',
+      'SAP HCM Testing',
+      'Salesforce Testing',
+      'Telecom (Prepaid & Postpaid)',
+      'Service Request (SR) Workflows',
+      'SAP FIORI UI Validation',
+      'HRSP Summer/Winter Releases',
+    ],
+  },
+  {
+    title: 'Test Automation',
+    description: 'Enterprise and modern automation framework design and execution',
+    skills: [
+      'Tricentis Tosca',
+      'Tosca DI (Data Integrity)',
+      'Playwright',
+      'Page Object Model (POM)',
+      'Reusable Script Development',
+      'Distributed Execution (DEX)',
+      'qTest Integration',
+      'Regression Pack Maintenance',
+    ],
+  },
+  {
+    title: 'Programming & Scripting',
+    description: 'Languages used in test frameworks, agent tooling, and backend pipelines',
+    skills: [
+      'Python',
+      'TypeScript',
+      'JavaScript',
+      'JSON Data Architecture',
+      'SQL / PostgreSQL Validation',
+    ],
+  },
+  {
+    title: 'AI & Gen-AI Engineering',
+    description: 'Local LLM orchestration, agentic workflows, and testing automation tooling',
+    skills: [
+      'LLM Implementation',
+      'Ollama (Local LLM Deployments)',
+      'AI Agents (Big Agents & Smol Agents)',
+      'Prompt Engineering',
+      'AI-Driven Test Generation',
+      'AI Code Review & Smell Analysis',
+      'Autonomous RTM Generation',
+    ],
+  },
+  {
+    title: 'DevOps, Tools & Process',
+    description: 'Delivery tooling, test management, and agile collaboration frameworks',
+    skills: [
+      'Git',
+      'GitHub',
+      'GitHub Actions',
+      'JIRA',
+      'Tricentis qTest',
+      'Tricentis DEX',
+      'NeoLoad',
+      'Agile (SAFe) Methodologies',
+      'Mentoring & Knowledge Transfer',
+    ],
+  },
+];
